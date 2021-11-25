@@ -73,6 +73,11 @@ class StackdriverHandler extends AbstractProcessingHandler
             'data'    => $record['context']
         ];
 
+        if (isset($data['data']['metadata']) && is_array($data['data']['metadata'])) {
+            $data['metedata'] = $data['data']['metadata'];
+            unset($data['data']['metadata']);
+        }
+
         $entry = $this->logger->entry($data, $options);
 
         $this->logger->write($entry);
